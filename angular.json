@@ -234,6 +234,31 @@
           }
         }
       }
+    },
+    "feature-quote": {
+      "projectType": "library",
+      "root": "libs/feature-quote",
+      "sourceRoot": "libs/feature-quote/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/feature-quote/src/**/*.ts",
+              "libs/feature-quote/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/feature-quote"],
+          "options": {
+            "jestConfig": "libs/feature-quote/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/apps/api',
     '<rootDir>/libs/ui-login',
     '<rootDir>/libs/feature-login',
+    '<rootDir>/libs/feature-quote',
   ],
 };

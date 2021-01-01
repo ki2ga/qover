@@ -1,20 +1,42 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import { Observable, Subject } from 'rxjs'
+import { finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
+
 import { ISubmitLogin } from '@qover/ui-login'
+import { UserLoginService } from './user-login.service'
 
 @Component({
     selector: 'qover-user-login',
     templateUrl: './user-login.component.html',
     styleUrls: ['./user-login.component.css']
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent {
 
-    public invalidCredentials: boolean
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Instance members //////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor() { }
+    public loginResult$: Observable<boolean>
 
-    ngOnInit(): void {
+    private loginSubject: Subject<ISubmitLogin> = new Subject()
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Constructor ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    constructor(
+        router: Router,
+        userLoginService: UserLoginService,
+    ) {
+        this.loginResult$ = this.loginSubject.pipe(
+            switchMap(login => userLoginService.submitLogin(login)),
+            takeWhile(loginResult => !loginResult, true),
+            startWith(true),
+            finalize(() => router.navigate(['/'])),
+        )
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Public methods ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +44,7 @@ export class UserLoginComponent implements OnInit {
     /**********************************************************************************************
      * @method submitLogin
      *********************************************************************************************/
-    public submitLogin(submitLogin: ISubmitLogin): void {
-        this.invalidCredentials = true
-  }
+    public submitLogin(login: ISubmitLogin) {
+        this.loginSubject.next(login)
+    }
 }

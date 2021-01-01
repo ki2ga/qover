@@ -41,6 +41,9 @@
     },
     "feature-login": {
       "tags": []
+    },
+    "feature-quote": {
+      "tags": []
     }
   }
 }

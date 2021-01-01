@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+
+import { ISubmitLogin } from '@qover/ui-login'
+import { of } from 'rxjs'
+
+@Injectable({ providedIn: 'root' })
+export class UserLoginService {
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Constructor ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    constructor(private readonly http: HttpClient) { }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Public methods ////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**********************************************************************************************
+     * @method submitLogin
+     *********************************************************************************************/
+    public submitLogin(submitLogin: ISubmitLogin) {
+        return of(submitLogin.login === 'qover')
+        return this.http.post<boolean>('/api/login', submitLogin)
+    }
+}
