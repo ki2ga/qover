@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qover/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@qover/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@qover/ui-login": ["libs/ui-login/src/index.ts"],
+      "@qover/feature-login": ["libs/feature-login/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,48 @@
+
+<div class="Mask">
+    <span class="Qover-me">< COVER.ME</span>
+    <header class="Header"></header>
+
+    <div class="Content">
+        <img src="assets/white.svg" alt="Qover logo" class="White">
+        
+        <div class="Login-elements">
+            <div class="Welcome-at-Qover">Welcome at Qover</div>
+
+            <label for="login" class="Title">Email</label>
+            <input type="text" id="login" class="Text" [(ngModel)]="login">
+            <div class="Separator"></div>
+
+            <label for="password" class="Title">Password</label>
+            <input type="password" id="password" class="Text" [(ngModel)]="password">
+            <div class="Separator"></div>
+
+            <div class="Login-options">
+                <span (click)="rememberMe = !rememberMe">
+                    <img *ngIf="rememberMe" src="assets/checked-no-label.svg" class="Checkbox">
+                    <span *ngIf="!rememberMe" class="Checkbox Unchecked"></span>
+                    <span class="Remember-me">Remember me</span>
+                </span>
+                <span class="Forgot-your-password">Forgot your password?</span>
+            </div>
+
+            <div class="Remember-me Invalid-credentials">{{invalidCredentials ? 'Provided credentials are invalid. Try again.' : ''}}</div>
+
+            <button
+                [disabled]="!isLoginButtonEnabled"
+                (click)="submit()"
+                class="Log-in-button Button-text"
+                [class.Log-in-disabled]="!isLoginButtonEnabled"
+            >
+                Sign in to your account
+            </button>
+        </div>
+
+        <div class="No-account Button-text">
+            Don’t have an account? <a href="javascript:void(0)" class="Ask-access">Ask access</a>
+        </div>
+    </div>
+
+    <div class="Line"></div>
+    <footer class="Footer">© Qover 2017</footer>
+</div>

@@ -35,6 +35,12 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "ui-login": {
+      "tags": []
+    },
+    "feature-login": {
+      "tags": []
     }
   }
 }

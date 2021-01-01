@@ -18,7 +18,12 @@
             "aot": true,
             "assets": [
               "apps/quick-quote/src/favicon.ico",
-              "apps/quick-quote/src/assets"
+              "apps/quick-quote/src/assets",
+              {
+                "input": "libs/ui-assets",
+                "glob": "**/*",
+                "output": "./assets/"
+              }
             ],
             "styles": ["apps/quick-quote/src/styles.css"],
             "scripts": []
@@ -176,6 +181,56 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+          }
+        }
+      }
+    },
+    "ui-login": {
+      "projectType": "library",
+      "root": "libs/ui-login",
+      "sourceRoot": "libs/ui-login/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui-login/src/**/*.ts",
+              "libs/ui-login/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-login"],
+          "options": {
+            "jestConfig": "libs/ui-login/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "feature-login": {
+      "projectType": "library",
+      "root": "libs/feature-login",
+      "sourceRoot": "libs/feature-login/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/feature-login/src/**/*.ts",
+              "libs/feature-login/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/feature-login"],
+          "options": {
+            "jestConfig": "libs/feature-login/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
