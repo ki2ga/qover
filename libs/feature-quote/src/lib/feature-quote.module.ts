@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { UserQuoteComponent } from './user-quote/user-quote.component'
 import { UiQuoteModule } from '@qover/ui-quote'
+import { UserOfferComponent } from './user-offer/user-offer.component'
+import { UserQuoteComponent } from './user-quote/user-quote.component'
 
 const routes: Routes = [
     { path: '', component: UserQuoteComponent },
+    { path: ':quoteId', component: UserOfferComponent },
 ]
 
 @NgModule({
@@ -18,6 +20,7 @@ const routes: Routes = [
     ],
     declarations: [
         UserQuoteComponent,
+        UserOfferComponent,
     ],
     exports: [
         RouterModule,

@@ -1,0 +1,239 @@
+.Background-travel {
+    background-image: url("/assets/background-travel.svg");
+    height: 50%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Select-a-plan {
+    margin: 40px 0;
+    font-family: MuseoSans;
+    font-size: 26px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+.Pay-frequency {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.08px;
+    color: #ffffff;
+}
+
+.Selected-frequency {
+    font-weight: bold;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--white-20);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.switch>input {
+    visibility: hidden;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+  
+/* Rounded sliders */
+.slider.round {
+    border-radius: 30px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.Plan-selection {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.Plan {
+    width: 323px;
+    height: 470px;
+    margin: 0 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(72, 72, 72, 0.5);
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.Plan.Selected {
+    background-color: #31cfda;
+    color: #ffffff;
+}
+
+.Plan-title {
+    padding: 20px 0;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;  
+}
+
+.Line {
+    opacity: 0.1;
+    border: solid 1px var(--blue-grey);
+}
+
+.Offer {
+    padding: 15px 0 20px;
+    color: #31cfda;
+}
+
+.Price {
+    padding: 0 4px 2px 0;
+    font-family: Roboto;
+    font-size: 38px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.Selected .Offer {
+    color: #ffffff;
+}
+
+.Currency-symbol {
+    vertical-align: top;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.Frequency {
+    font-family: Roboto;
+    font-size: 11px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;  
+}
+
+.Feature {
+    padding: 15px 0;
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--greyish-brown);
+}
+
+.Light {
+    font-weight: 300;
+}
+
+.Select {
+    padding: 10px;
+    height: 50px;
+}
+
+.Select-button {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    font-family: MuseoSans;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    border: solid 1px #31cfda;
+    background-color: #31cfda;
+}
+
+.Selected .Select-button {
+    color: #31cfda;
+    background-color: #ffffff;
+}
+
+.Valid {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 0;
+    object-fit: contain;
+}
+
+.Plan-selected {
+    display: flex;
+    justify-content: center;
+}
+
+.Show-comparison {
+    padding: 0 11px 40px 0;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #31cfda;
+}

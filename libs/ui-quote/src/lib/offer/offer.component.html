@@ -1,0 +1,56 @@
+<div class="Background-travel">
+    <div class="Select-a-plan">Select a plan</div>
+    <div class="Pay-frequency">
+        <span [class.Selected-frequency]="!payYearly">PAY MONTHLY</span>
+        <label class="switch">
+            <input type="checkbox" [(ngModel)]="payYearly">
+            <span class="slider round"></span>
+        </label>
+        <span [class.Selected-frequency]="payYearly">PAY YEARLY</span>
+    </div>
+    <div class="Plan-selection">
+        <div *ngFor="let plan of plans" class="Plan" [class.Selected]="plan.planId === selectedPlan">
+            <div class="Plan-title">{{plan.name}}</div>
+            <div class="Line"></div>
+            <div class="Offer">
+                <span class="Price">{{offer[plan.planId] / (payYearly ? 1 : 12) | number:'0.2-2'}}</span>
+                <span class="Currency-symbol">€</span>
+                <div class="Frequency">{{payYearly ? 'YEARLY' : 'MONTHLY'}} INCL. TAXES</div>
+            </div>
+            <div class="Line"></div>
+            <div class="Feature">
+                Maximum duration travel <span class="Light">of</span> {{plan.maxTravelDays}} days
+            </div>
+            <div class="Line"></div>
+            <div class="Feature">
+                Medical expenses reimbursement <span class="Light">up to</span> {{plan.medicalCoverage | currency:'€'}}
+            </div>
+            <div class="Line"></div>
+            <div class="Feature">
+                Personal assistance abroad <span class="Light">up to</span> {{plan.personalAsistance | currency:'€'}}
+            </div>
+            <div class="Line"></div>
+            <div class="Feature">
+                Travel assistance abroad <span class="Light">up to</span> {{plan.travelAsistance | currency:'€'}}<br>
+                <span class="Light">per insured per travel</span>
+            </div>
+            <div class="Line"></div>
+            <div class="Feature">
+                Coverage duration: {{plan.durationYears}} year<span *ngIf="plan.durationYears > 1">s</span>
+            </div>
+            <div class="Line"></div>
+            <div class="Select">
+                <button class="Select-button" (click)="selectedPlan = plan.planId">
+                    <span *ngIf="plan.planId === selectedPlan" class="Plan-selected">
+                        <img src="assets/valid.svg" class="Valid"> Plan selected
+                    </span>
+                    <span *ngIf="plan.planId !== selectedPlan">Choose this plan</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="Show-comparison">Show me the full comparison table</a>
+        <img src="assets/icon-comparison.svg">
+    </div>
+</div>

@@ -15,6 +15,20 @@ export interface ISubmitQuote {
     carPrice: number
 }
 
+export interface IPlan {
+    planId: number
+    name: string
+    maxTravelDays: number
+    medicalCoverage: number
+    personalAsistance: number
+    travelAsistance: number
+    durationYears: number
+}
+
+export interface IOffer {
+    [planId: number]: number
+}
+
 export enum EQuoteValidator {OK, AGE, PRICE, OTHER}
 
 export function validateQuote(quote: ISubmitQuote, validator: IQuoteValidator) {

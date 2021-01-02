@@ -41,7 +41,7 @@ export class UserQuoteComponent {
             takeWhile(quoteId => !quoteId, true),
             tap(quoteId => savedQuoteId = quoteId),
             startWith(1),
-            finalize(() => router.navigate(['/quotes', savedQuoteId])),
+            finalize(() => router.navigate(['/quote', savedQuoteId])),
         )
     }
 
