@@ -29,10 +29,9 @@
             <div class="Remember-me Invalid-credentials">{{invalidCredentials ? 'Provided credentials are invalid. Try again.' : ''}}</div>
 
             <button
-                [disabled]="!isLoginButtonEnabled"
+                [disabled]="!(login && password)"
                 (click)="submit()"
                 class="Log-in-button Button-text"
-                [class.Log-in-disabled]="!isLoginButtonEnabled"
             >
                 Sign in to your account
             </button>

@@ -18,7 +18,12 @@
       "@qover/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@qover/ui-login": ["libs/ui-login/src/index.ts"],
       "@qover/feature-login": ["libs/feature-login/src/index.ts"],
-      "@qover/feature-quote": ["libs/feature-quote/src/index.ts"]
+      "@qover/feature-quote": ["libs/feature-quote/src/index.ts"],
+      "@qover/data-access-auth": ["libs/data-access-auth/src/index.ts"],
+      "@qover/shared-auth": ["libs/shared-auth/src/index.ts"],
+      "@qover/ui-quote": ["libs/ui-quote/src/index.ts"],
+      "@qover/shared-quote": ["libs/shared-quote/src/index.ts"],
+      "@qover/data-access-quote": ["libs/data-access-quote/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,75 @@
+.Mask {
+    background-image: linear-gradient(122deg, #317bda -6%, #33c3c8);
+    padding: 200px 0 229px;
+}
+
+.Content {
+    margin: auto;
+    width: 493px;
+    padding: 60px 222px 60px 220px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(72, 72, 72, 0.5);
+    background-color: #ffffff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--greyish-brown);  
+}
+
+.Grid {
+    display: grid;
+    grid-template-columns: 159px 80px 244px;
+    grid-template-rows: 40px 40px 40px;
+    column-gap: 10px;
+    row-gap: 20px;
+    align-items: center;
+}
+
+input {
+    align-self: stretch;
+}
+
+select {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    align-self: stretch;
+}
+
+input:invalid, select.ng-invalid, input.ng-invalid {
+    border-color: red;
+    color: red;
+}
+
+.Invalid-input {
+    margin: 10px auto 0;
+    text-align: center;
+    font-weight: 500;
+    color: #ee3d57;
+}
+
+.Submit-button {
+    margin: 40px auto 0;
+    display: block;
+    width: 163px;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #31cfda;
+    background-color: #31cfda;
+    font-family: MuseoSans;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+.Submit-button:disabled {
+    background-color: lightgray;
+    color: gray;
+}

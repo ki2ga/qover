@@ -1,0 +1,5 @@
+<qover-quote *ngIf="{quoteId: quoteId$ | async} as context"
+    [cars]="cars$ | async"
+    [validator]="quoteValidator$ | async"
+    (submitQuote)="submitQuote($event)"
+></qover-quote>

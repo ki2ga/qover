@@ -1,0 +1,27 @@
+<div class="Mask">
+    <form (ngSubmit)="submit(quoteForm)" #quoteForm="ngForm" class="Content">
+        <div class="Grid">
+            <label for="age">Age of the driver</label>
+            <input id="age" name="age" type="number" [(ngModel)]="age" [min]="validator.minAge">
+            <span></span>
+
+            <label for="car">Car</label>
+            <select id="car" name="car" [(ngModel)]="carId">
+                <option *ngFor="let car of cars" [value]="car.carId">{{car.carName}}</option>
+            </select>
+
+            <label for="price">Purchase Price</label>
+            <input id="price" name="price" type="number" [(ngModel)]="price" [min]="validator.minPrice">€
+        </div>
+
+        <div *ngIf="invalid" class="Invalid-input">{{invalidMessages[invalid]}}</div>
+
+        <button
+            type="submit"
+            [disabled]="!(age && carId && price)"
+            class="Submit-button"
+        >
+            Get a price
+        </button>
+    </form>
+</div>

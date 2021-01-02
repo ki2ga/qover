@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
-import { LoginComponent } from './login/login.component'
+import { QuoteComponent } from './quote/quote.component'
 
 @NgModule({
     imports: [
@@ -10,10 +10,10 @@ import { LoginComponent } from './login/login.component'
         FormsModule,
     ],
     declarations: [
-        LoginComponent,
+        QuoteComponent,
     ],
     exports: [
-        LoginComponent,
+        QuoteComponent,
     ],
 })
-export class UiLoginModule {}
+export class UiQuoteModule {}

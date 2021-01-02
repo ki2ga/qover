@@ -44,6 +44,21 @@
     },
     "feature-quote": {
       "tags": []
+    },
+    "data-access-auth": {
+      "tags": []
+    },
+    "shared-auth": {
+      "tags": []
+    },
+    "ui-quote": {
+      "tags": []
+    },
+    "shared-quote": {
+      "tags": []
+    },
+    "data-access-quote": {
+      "tags": []
     }
   }
 }

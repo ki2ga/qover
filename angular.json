@@ -259,6 +259,123 @@
           }
         }
       }
+    },
+    "data-access-auth": {
+      "projectType": "library",
+      "root": "libs/data-access-auth",
+      "sourceRoot": "libs/data-access-auth/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/data-access-auth/src/**/*.ts",
+              "libs/data-access-auth/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/data-access-auth"],
+          "options": {
+            "jestConfig": "libs/data-access-auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-auth": {
+      "root": "libs/shared-auth",
+      "sourceRoot": "libs/shared-auth/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-auth/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-auth"],
+          "options": {
+            "jestConfig": "libs/shared-auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-quote": {
+      "projectType": "library",
+      "root": "libs/ui-quote",
+      "sourceRoot": "libs/ui-quote/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui-quote/src/**/*.ts",
+              "libs/ui-quote/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-quote"],
+          "options": {
+            "jestConfig": "libs/ui-quote/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-quote": {
+      "root": "libs/shared-quote",
+      "sourceRoot": "libs/shared-quote/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-quote/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-quote"],
+          "options": {
+            "jestConfig": "libs/shared-quote/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "data-access-quote": {
+      "projectType": "library",
+      "root": "libs/data-access-quote",
+      "sourceRoot": "libs/data-access-quote/src",
+      "prefix": "qover",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/data-access-quote/src/**/*.ts",
+              "libs/data-access-quote/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/data-access-quote"],
+          "options": {
+            "jestConfig": "libs/data-access-quote/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

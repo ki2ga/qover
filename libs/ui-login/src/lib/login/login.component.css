@@ -156,7 +156,7 @@
     color: #ffffff;
 }
 
-.Log-in-disabled {
+.Button-text:disabled {
     background-color: lightgray;
     color: gray;
 }

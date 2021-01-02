@@ -7,20 +7,20 @@ import { UiLoginModule } from '@qover/ui-login'
 
 const routes: Routes = [
     { path: '', component: UserLoginComponent }
-];
+]
 
 @NgModule({
     imports: [
         CommonModule,
         UiLoginModule,
         
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
     ],
     declarations: [
-        UserLoginComponent
+        UserLoginComponent,
     ],
     exports: [
-        RouterModule
+        RouterModule,
     ],
 })
 export class FeatureLoginModule {}

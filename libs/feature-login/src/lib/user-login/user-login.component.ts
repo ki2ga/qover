@@ -3,8 +3,8 @@ import { Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
 
-import { ISubmitLogin } from '@qover/ui-login'
-import { UserLoginService } from './user-login.service'
+import { AuthService } from '@qover/data-access-auth'
+import { ISubmitLogin } from '@qover/shared-auth'
 
 @Component({
     selector: 'qover-user-login',
@@ -26,14 +26,19 @@ export class UserLoginComponent {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     constructor(
-        router: Router,
-        userLoginService: UserLoginService,
+        private readonly router: Router,
+        authService: AuthService,
     ) {
+        if (authService.authenticated) this.redirectAuthenticated()
+
         this.loginResult$ = this.loginSubject.pipe(
-            switchMap(login => userLoginService.submitLogin(login)),
+            switchMap(login => authService.submitLogin(login)),
             takeWhile(loginResult => !loginResult, true),
             startWith(true),
-            finalize(() => router.navigate(['/'])),
+            finalize(() => {
+                authService.authenticated = true
+                this.redirectAuthenticated()
+            }),
         )
     }
 
@@ -46,5 +51,17 @@ export class UserLoginComponent {
      *********************************************************************************************/
     public submitLogin(login: ISubmitLogin) {
         this.loginSubject.next(login)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Private methods ///////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**********************************************************************************************
+     * @method redirectAuthenticated
+     *********************************************************************************************/
+    public redirectAuthenticated() {
+        console.log('authent')
+        this.router.navigate(['/'])
     }
 }
