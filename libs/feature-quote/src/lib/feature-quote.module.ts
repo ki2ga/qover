@@ -7,7 +7,7 @@ import { UserOfferComponent } from './user-offer/user-offer.component'
 import { UserQuoteComponent } from './user-quote/user-quote.component'
 
 const routes: Routes = [
-    { path: '', component: UserQuoteComponent },
+    { path: '', component: UserQuoteComponent, pathMatch: 'full' },
     { path: ':quoteId', component: UserOfferComponent },
 ]
 

@@ -33,16 +33,18 @@ export class UserQuoteComponent {
         router: Router,
         authService: AuthService,
     ) {
-        if (!authService.authenticated) router.navigate(['login'])
-
-        let savedQuoteId: number
-        this.quoteId$ = this.quoteSubject.pipe(
-            switchMap(quote => quoteService.submitQuote(quote)),
-            takeWhile(quoteId => !quoteId, true),
-            tap(quoteId => savedQuoteId = quoteId),
-            startWith(1),
-            finalize(() => router.navigate(['/quote', savedQuoteId])),
-        )
+        if (!authService.authenticated) {
+            router.navigate(['login'])
+        } else {
+            let savedQuoteId: number
+            this.quoteId$ = this.quoteSubject.pipe(
+                switchMap(quote => quoteService.submitQuote(quote)),
+                takeWhile(quoteId => !quoteId, true),
+                tap(quoteId => savedQuoteId = quoteId),
+                startWith(1),
+                finalize(() => router.navigate(['quote', savedQuoteId])),
+            )
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

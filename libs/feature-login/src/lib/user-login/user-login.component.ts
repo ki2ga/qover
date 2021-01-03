@@ -61,7 +61,6 @@ export class UserLoginComponent {
      * @method redirectAuthenticated
      *********************************************************************************************/
     public redirectAuthenticated() {
-        console.log('authent')
         this.router.navigate(['/'])
     }
 }

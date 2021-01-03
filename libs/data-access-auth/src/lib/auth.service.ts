@@ -24,7 +24,7 @@ export class AuthService {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public get authenticated() {
-        return this._authenticated || true
+        return this._authenticated
     }
 
     public set authenticated(value: boolean) {
