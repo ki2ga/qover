@@ -23,7 +23,9 @@
       "@qover/shared-auth": ["libs/shared-auth/src/index.ts"],
       "@qover/ui-quote": ["libs/ui-quote/src/index.ts"],
       "@qover/shared-quote": ["libs/shared-quote/src/index.ts"],
-      "@qover/data-access-quote": ["libs/data-access-quote/src/index.ts"]
+      "@qover/data-access-quote": ["libs/data-access-quote/src/index.ts"],
+      "@qover/auth": ["libs/auth/src/index.ts"],
+      "@qover/quotes": ["libs/quotes/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

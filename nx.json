@@ -59,6 +59,12 @@
     },
     "data-access-quote": {
       "tags": []
+    },
+    "auth": {
+      "tags": []
+    },
+    "quotes": {
+      "tags": []
     }
   }
 }

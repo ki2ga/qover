@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
+import { shareReplay } from 'rxjs/operators'
 
 import { ICar, IOffer, IPlan, IQuoteValidator, ISubmitQuote } from '@qover/shared-quote'
 
@@ -11,7 +12,9 @@ export class QuoteService {
     /////////////////////////////////// Instance members //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    private _cars: ICar[]
+    // cache
+    private _cars: Observable<ICar[]>
+    private _plans: Observable<IPlan[]>
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Constructor ///////////////////////////////////////////////
@@ -27,29 +30,27 @@ export class QuoteService {
      * @method getCars
      *********************************************************************************************/
     public getCars(): Observable<ICar[]> {
-        return of([
-            {carId: 1, carName: 'Audi'},
-            {carId: 2, carName: 'BMW'},
-            {carId: 3, carName: 'Porsche'},
-        ])
-        return this.http.get<ICar[]>('/api/login')
+        if (!this._cars) {
+            this._cars = this.http.get<ICar[]>('/api/quotes/cars').pipe(shareReplay(1))
+        }
+        return this._cars
     }
 
     /**********************************************************************************************
      * @method getOffer
      *********************************************************************************************/
     public getOffer(quoteId: number): Observable<IOffer> {
-        return of({1: 78.30, 2: 114.71})
+        return this.http.get<IOffer>(`/api/quotes/offers/${quoteId}`)
     }
 
     /**********************************************************************************************
      * @method getPlans
      *********************************************************************************************/
     public getPlans(): Observable<IPlan[]> {
-        return of([
-            {planId: 1, name: 'Global', maxTravelDays: 90, medicalCoverage: 1000000, personalAsistance: 5000, travelAsistance: 1000, durationYears: 1},
-            {planId: 2, name: 'Universe', maxTravelDays: 180, medicalCoverage: 3000000, personalAsistance: 10000, travelAsistance: 2500, durationYears: 1},
-        ])
+        if (!this._plans) {
+            this._plans = this.http.get<IPlan[]>('/api/quotes/plans').pipe(shareReplay(1))
+        }
+        return this._plans
     }
 
     /**********************************************************************************************

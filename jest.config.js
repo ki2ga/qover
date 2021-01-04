@@ -10,5 +10,7 @@ module.exports = {
     '<rootDir>/libs/ui-quote',
     '<rootDir>/libs/shared-quote',
     '<rootDir>/libs/data-access-quote',
+    '<rootDir>/libs/auth',
+    '<rootDir>/libs/quotes',
   ],
 };

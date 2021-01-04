@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
-import { finalize, startWith, switchMap, takeWhile, tap } from 'rxjs/operators'
+import { switchMap, takeWhile, tap } from 'rxjs/operators'
 
 import { AuthService } from '@qover/data-access-auth'
 import { QuoteService } from '@qover/data-access-quote'
@@ -36,13 +36,10 @@ export class UserQuoteComponent {
         if (!authService.authenticated) {
             router.navigate(['login'])
         } else {
-            let savedQuoteId: number
             this.quoteId$ = this.quoteSubject.pipe(
                 switchMap(quote => quoteService.submitQuote(quote)),
                 takeWhile(quoteId => !quoteId, true),
-                tap(quoteId => savedQuoteId = quoteId),
-                startWith(1),
-                finalize(() => router.navigate(['quote', savedQuoteId])),
+                tap(quoteId => router.navigate(['quote', quoteId])),
             )
         }
     }
