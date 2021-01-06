@@ -38,7 +38,7 @@ export class QuoteComponent {
      *********************************************************************************************/
     public submit(formData: NgForm): void {
         const quote: ISubmitQuote = {
-            carId: this.carId,
+            carId: Number(this.carId),
             carPrice: this.price,
             driverAge: this.age,
         }

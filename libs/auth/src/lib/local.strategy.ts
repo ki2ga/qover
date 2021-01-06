@@ -1,30 +1,31 @@
-import { Injectable } from '@nestjs/common'
-import { compare } from 'bcrypt'
+import { Strategy } from 'passport-local'
+import { PassportStrategy } from '@nestjs/passport'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 
-import { User, UsersService } from '@qover/users'
+import { IUser } from '@qover/shared-auth'
+import { AuthService } from './auth.service'
 
 @Injectable()
-export class AuthService {
+export class LocalStrategy extends PassportStrategy(Strategy) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Constructor ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor(private usersService: UsersService) {}
+    constructor(private authService: AuthService) {
+        super()
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Public methods ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**********************************************************************************************
-     * @method validateUser
+     * @method validate
      *********************************************************************************************/
-    async validateUser(username: string, password: string): Promise<User> {
-        const user = await this.usersService.findOne(username)
-        if (user && await compare(password, user.password)) {
-            user.password = ''
-            return user
-        }
-        return null
+    async validate(username: string, password: string): Promise<IUser> {
+        const user = await this.authService.validateUser(username, password)
+        if (!user) throw new UnauthorizedException()
+        else return {login: user.login}
     }
 }

@@ -1,4 +1,4 @@
-<div class="Mask">
+<div *ngIf="validator" class="Mask">
     <form (ngSubmit)="submit(quoteForm)" #quoteForm="ngForm" class="Content">
         <div class="Grid">
             <label for="age">Age of the driver</label>

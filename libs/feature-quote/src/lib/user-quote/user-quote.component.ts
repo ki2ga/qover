@@ -20,7 +20,7 @@ export class UserQuoteComponent {
 
     public cars$ = this.quoteService.getCars()
     public quoteValidator$ = this.quoteService.getQuoteValidator()
-    public quoteId$: Observable<number>
+    public offerId$: Observable<string>
 
     private quoteSubject: Subject<ISubmitQuote> = new Subject()
 
@@ -33,15 +33,11 @@ export class UserQuoteComponent {
         router: Router,
         authService: AuthService,
     ) {
-        if (!authService.authenticated) {
-            router.navigate(['login'])
-        } else {
-            this.quoteId$ = this.quoteSubject.pipe(
-                switchMap(quote => quoteService.submitQuote(quote)),
-                takeWhile(quoteId => !quoteId, true),
-                tap(quoteId => router.navigate(['quote', quoteId])),
-            )
-        }
+        this.offerId$ = this.quoteSubject.pipe(
+            switchMap(quote => quoteService.submitQuote(quote)),
+            takeWhile(offerId => !offerId, true),
+            tap(offerId => router.navigate(['quote', offerId])),
+        )
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

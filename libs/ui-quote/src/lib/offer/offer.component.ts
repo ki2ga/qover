@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnChanges } from '@angular/core'
 
 import { IOffer, IPlan } from '@qover/shared-quote'
 
 @Component({
-  selector: 'qover-offer',
-  templateUrl: './offer.component.html',
-  styleUrls: ['./offer.component.css'],
+    selector: 'qover-offer',
+    templateUrl: './offer.component.html',
+    styleUrls: ['./offer.component.css'],
 })
-export class OfferComponent {
+export class OfferComponent implements OnChanges {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Instance members //////////////////////////////////////////
@@ -17,5 +17,9 @@ export class OfferComponent {
     @Input() offer: IOffer
     
     public payYearly = true
-    public selectedPlan: number = 1
+    public selectedPlan: number
+
+    ngOnChanges() {
+        if (this.plans) this.selectedPlan = this.plans[0]?.planId
+    }
 }

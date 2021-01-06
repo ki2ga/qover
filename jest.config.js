@@ -12,5 +12,6 @@ module.exports = {
     '<rootDir>/libs/data-access-quote',
     '<rootDir>/libs/auth',
     '<rootDir>/libs/quotes',
+    '<rootDir>/libs/users',
   ],
 };

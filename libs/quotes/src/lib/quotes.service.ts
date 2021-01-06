@@ -1,54 +1,71 @@
 import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 
-import { ICar, IOffer, IPlan, ISubmitQuote } from '@qover/shared-quote'
-
-interface IOfferParams {
-    fixed: number
-    perc: number
-}
-
-interface ICarOfferParams {
-    [planId: number]: IOfferParams
-}
+import { ISubmitQuote } from '@qover/shared-quote'
+import { Car, CarDocument, PlanPriceParams } from './schemas/car.schema'
+import { Plan, PlanDocument } from './schemas/plan.schema'
+import { Offer, OfferDocument } from './schemas/offer.schema'
+import { Validator, ValidatorDocument } from './schemas/validator.schema'
 
 @Injectable()
 export class QuotesService {
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////// Constructor ///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    constructor(
+        @InjectModel(Car.name) private carModel: Model<CarDocument>,
+        @InjectModel(Offer.name) private offerModel: Model<OfferDocument>,
+        @InjectModel(Plan.name) private planModel: Model<PlanDocument>,
+        @InjectModel(Validator.name) private quoteValidatorModel: Model<ValidatorDocument>,
+    ) {}
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Public methods ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**********************************************************************************************
+     * @method createOffer
+     *********************************************************************************************/
+    public async createOffer(quote: ISubmitQuote): Promise<OfferDocument> {
+        const params = await this.findCarOfferParams(quote.carId)
+        const planPrices = params.map(({planId, fixed, permille}) => ({
+            planId,
+            price: fixed + quote.carPrice * permille / 1000
+        }))
+
+        const offer = new this.offerModel(Object.assign({}, quote, {planPrices}))
+        return offer.save()
+    }
+
+    /**********************************************************************************************
      * @method findAllCars
      *********************************************************************************************/
-    public async findAllCars(): Promise<ICar[]> {
-        return [
-            {carId: 1, carName: 'Audi'},
-            {carId: 2, carName: 'BMW'},
-            {carId: 3, carName: 'Porsche'},
-        ]
+    public async findAllCars(): Promise<CarDocument[]> {
+        return this.carModel.find().exec()
     }
 
     /**********************************************************************************************
      * @method findAllPlans
      *********************************************************************************************/
-    public async findAllPlans(): Promise<IPlan[]> {
-        return [
-            {planId: 1, name: 'Global', maxTravelDays: 90, medicalCoverage: 1000000, personalAsistance: 5000, travelAsistance: 1000, durationYears: 1},
-            {planId: 2, name: 'Universe', maxTravelDays: 180, medicalCoverage: 3000000, personalAsistance: 10000, travelAsistance: 2500, durationYears: 1},
-        ]
+    public async findAllPlans(): Promise<PlanDocument[]> {
+        return this.planModel.find().exec()
     }
 
     /**********************************************************************************************
-     * @method getOffer
+     * @method findOfferById
      *********************************************************************************************/
-    public async getOffer(quoteId: number): Promise<IOffer> {
-        const quote = await this.findQuoteById(quoteId)
-        const params = await this.findCarOfferParams(quote.carId)
-        return Object.entries(params).reduce((acc, [planId, param]: [string, IOfferParams]) => {
-            acc[planId] = param.fixed + quote.carPrice * param.perc / 100
-            return acc
-        }, {})
+    public async findOfferById(offerId: number): Promise<OfferDocument> {
+        return this.offerModel.findById(offerId, {planPrices: true}).exec()
+    }
+
+    /**********************************************************************************************
+     * @method findQuoteValidator
+     *********************************************************************************************/
+    public findQuoteValidator(): Promise<ValidatorDocument> {
+        return this.quoteValidatorModel.findOne().exec()
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,22 +75,8 @@ export class QuotesService {
     /**********************************************************************************************
      * @method findCarOfferParams
      *********************************************************************************************/
-    private async findCarOfferParams(carId: number): Promise<ICarOfferParams> {
-        switch (carId) {
-            case 1: return {1: {fixed: 250, perc: 0}, 2: {fixed: 250, perc: 0.3}}
-            case 2: return {1: {fixed: 150, perc: 0}, 2: {fixed: 150, perc: 0.4}}
-            case 3: return {1: {fixed: 500, perc: 0}, 2: {fixed: 500, perc: 0.7}}
-        }
-    }
-
-    /**********************************************************************************************
-     * @method findQuote
-     *********************************************************************************************/
-    private async findQuoteById(quoteId: number): Promise<ISubmitQuote> {
-        return {
-            carId: 2,
-            carPrice: 38000,
-            driverAge: 30,
-        }
+    private async findCarOfferParams(carId: number): Promise<PlanPriceParams[]> {
+        const car = await this.carModel.findById(carId, {priceInPlanParams: true}).exec()
+        return car.priceInPlanParams
     }
 }

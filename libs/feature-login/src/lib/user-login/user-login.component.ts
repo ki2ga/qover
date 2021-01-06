@@ -1,10 +1,10 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, Subject } from 'rxjs'
-import { finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
+import { Observable, of, Subject } from 'rxjs'
+import { catchError, finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
 
 import { AuthService } from '@qover/data-access-auth'
-import { ISubmitLogin } from '@qover/shared-auth'
+import { ISubmitLogin, IUser } from '@qover/shared-auth'
 
 @Component({
     selector: 'qover-user-login',
@@ -17,7 +17,7 @@ export class UserLoginComponent {
     /////////////////////////////////// Instance members //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public loginResult$: Observable<boolean>
+    public loginResult$: Observable<IUser>
 
     private loginSubject: Subject<ISubmitLogin> = new Subject()
 
@@ -29,16 +29,11 @@ export class UserLoginComponent {
         private readonly router: Router,
         authService: AuthService,
     ) {
-        if (authService.authenticated) this.redirectAuthenticated()
-
         this.loginResult$ = this.loginSubject.pipe(
             switchMap(login => authService.submitLogin(login)),
             takeWhile(loginResult => !loginResult, true),
-            startWith(true),
-            finalize(() => {
-                authService.authenticated = true
-                this.redirectAuthenticated()
-            }),
+            startWith({} as IUser),
+            finalize(() => this.router.navigate(['/'])),
         )
     }
 
@@ -51,16 +46,5 @@ export class UserLoginComponent {
      *********************************************************************************************/
     public submitLogin(login: ISubmitLogin) {
         this.loginSubject.next(login)
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////// Private methods ///////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**********************************************************************************************
-     * @method redirectAuthenticated
-     *********************************************************************************************/
-    public redirectAuthenticated() {
-        this.router.navigate(['/'])
     }
 }

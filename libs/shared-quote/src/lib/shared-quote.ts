@@ -6,7 +6,7 @@ export interface ICar {
 export interface IQuoteValidator {
     minAge: number
     minPrice: number
-    minAgePerCar: {[catId: number]: number}
+    minAgePerCar: {[carId: number]: number}
 }
 
 export interface ISubmitQuote {

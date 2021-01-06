@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qover/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@qover/ui-login": ["libs/ui-login/src/index.ts"],
       "@qover/feature-login": ["libs/feature-login/src/index.ts"],
       "@qover/feature-quote": ["libs/feature-quote/src/index.ts"],
@@ -25,7 +24,8 @@
       "@qover/shared-quote": ["libs/shared-quote/src/index.ts"],
       "@qover/data-access-quote": ["libs/data-access-quote/src/index.ts"],
       "@qover/auth": ["libs/auth/src/index.ts"],
-      "@qover/quotes": ["libs/quotes/src/index.ts"]
+      "@qover/quotes": ["libs/quotes/src/index.ts"],
+      "@qover/users": ["libs/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

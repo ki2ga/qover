@@ -1,30 +1,37 @@
 import { Injectable } from '@nestjs/common'
-import { compare } from 'bcrypt'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 
-import { User, UsersService } from '@qover/users'
+import { User, UserDocument } from './schemas/user.schema'
 
 @Injectable()
-export class AuthService {
+export class UsersService {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Constructor ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor(private usersService: UsersService) {}
+    constructor(
+        @InjectModel(User.name) private userModel: Model<UserDocument>,
+    ) {}
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Public methods ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**********************************************************************************************
-     * @method validateUser
+     * @method createUser
      *********************************************************************************************/
-    async validateUser(username: string, password: string): Promise<User> {
-        const user = await this.usersService.findOne(username)
-        if (user && await compare(password, user.password)) {
-            user.password = ''
-            return user
-        }
-        return null
+    public async createUser(user: User): Promise<UserDocument> {
+        const userDocument = await (new this.userModel(user)).save()
+        userDocument.password = ''
+        return userDocument
     }
+
+    /**********************************************************************************************
+     * @method findOne
+     *********************************************************************************************/
+    async findOne(login: string): Promise<UserDocument> {
+        return this.userModel.findOne({login}).exec()
+      }
 }

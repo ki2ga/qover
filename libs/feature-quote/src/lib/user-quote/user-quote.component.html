@@ -1,4 +1,4 @@
-<qover-quote *ngIf="{quoteId: quoteId$ | async} as context"
+<qover-quote *ngIf="{offerId: offerId$ | async} as context"
     [cars]="cars$ | async"
     [validator]="quoteValidator$ | async"
     (submitQuote)="submitQuote($event)"

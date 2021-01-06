@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { of } from 'rxjs'
+import { Observable, of } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
-import { ISubmitLogin } from '@qover/shared-auth'
+import { ISubmitLogin, IUser } from '@qover/shared-auth'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////// Instance members //////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    private _authenticated: boolean
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Constructor ///////////////////////////////////////////////
@@ -20,26 +15,15 @@ export class AuthService {
     constructor(private readonly http: HttpClient) { }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////// Accessors /////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    public get authenticated() {
-        return this._authenticated
-    }
-
-    public set authenticated(value: boolean) {
-        this._authenticated = value
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// Public methods ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**********************************************************************************************
      * @method submitLogin
      *********************************************************************************************/
-    public submitLogin(submitLogin: ISubmitLogin) {
-        return of(submitLogin.login === 'qover')
-        return this.http.post<boolean>('/api/login', submitLogin)
+    public submitLogin(submitLogin: ISubmitLogin): Observable<IUser> {
+        return this.http.post<IUser>('/api/auth/login', submitLogin).pipe(
+            catchError(err => of(null))
+        )
     }
 }

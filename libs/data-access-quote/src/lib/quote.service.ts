@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
 
 import { ICar, IOffer, IPlan, IQuoteValidator, ISubmitQuote } from '@qover/shared-quote'
@@ -39,8 +39,8 @@ export class QuoteService {
     /**********************************************************************************************
      * @method getOffer
      *********************************************************************************************/
-    public getOffer(quoteId: number): Observable<IOffer> {
-        return this.http.get<IOffer>(`/api/quotes/offers/${quoteId}`)
+    public getOffer(offerId: string): Observable<IOffer> {
+        return this.http.get<IOffer>(`/api/quotes/offers/${offerId}`)
     }
 
     /**********************************************************************************************
@@ -57,18 +57,13 @@ export class QuoteService {
      * @method getQuoteValidator
      *********************************************************************************************/
     public getQuoteValidator(): Observable<IQuoteValidator> {
-        return of({
-            minAge: 18,
-            minPrice: 5000,
-            minAgePerCar: {3: 25},
-        })
+        return this.http.get<IQuoteValidator>(`/api/quotes/validator`)
     }
 
     /**********************************************************************************************
      * @method submitLogin
      *********************************************************************************************/
-    public submitQuote(submitQuote: ISubmitQuote): Observable<number> {
-        return of(42)
-        return this.http.post<number>('/api/login', submitQuote)
+    public submitQuote(submitQuote: ISubmitQuote): Observable<string> {
+        return this.http.post<string>('/api/quotes', submitQuote)
     }
 }

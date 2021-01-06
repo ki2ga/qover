@@ -27,7 +27,7 @@ export class UserOfferComponent {
         private readonly quoteService: QuoteService,
         route: ActivatedRoute,
     ) {
-        const quoteId = route.snapshot.params.quoteId
-        this.offer$ = this.quoteService.getOffer(quoteId)
+        const offerId = route.snapshot.params.offerId
+        this.offer$ = this.quoteService.getOffer(offerId)
     }
 }

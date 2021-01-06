@@ -8,7 +8,7 @@ import { UserQuoteComponent } from './user-quote/user-quote.component'
 
 const routes: Routes = [
     { path: '', component: UserQuoteComponent, pathMatch: 'full' },
-    { path: ':quoteId', component: UserOfferComponent },
+    { path: ':offerId', component: UserOfferComponent },
 ]
 
 @NgModule({

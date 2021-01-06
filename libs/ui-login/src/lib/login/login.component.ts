@@ -29,7 +29,7 @@ export class LoginComponent {
      *********************************************************************************************/
     public submit(): void {
         this.submitLogin.emit({
-            login: this.login,
+            username: this.login,
             password: this.password,
             rememberMe: this.rememberMe,
         })
