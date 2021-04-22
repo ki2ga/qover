@@ -31,7 +31,7 @@ export class UsersService {
     /**********************************************************************************************
      * @method findOne
      *********************************************************************************************/
-    async findOne(login: string): Promise<UserDocument> {
+    public findOne(login: string): Promise<UserDocument> {
         return this.userModel.findOne({login}).exec()
-      }
+    }
 }

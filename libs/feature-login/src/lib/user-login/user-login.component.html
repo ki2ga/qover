@@ -1,4 +1,4 @@
-<qover-login *ngIf="{loginResult: loginResult$ | async} as context"
-    [invalidCredentials]="!context.loginResult"
+<qover-login *ngIf="{user: user$ | async} as context"
+    [invalidCredentials]="!context.user"
     (submitLogin)="submitLogin($event)"
 ></qover-login>

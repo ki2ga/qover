@@ -21,7 +21,7 @@ export class QuotesController {
     @Post()
     async createOffer(@Body() quote: ISubmitQuote) {
         const offer = await this.quotesService.createOffer(quote)
-        return offer._id
+        return offer?._id
     }
 
     @Get('cars')
@@ -38,8 +38,7 @@ export class QuotesController {
 
     @Get('validator')
     async getValidator() {
-        const {minAge, minPrice, customPerCar} = await this.quotesService.findQuoteValidator()
-        return Object.assign({minAge, minPrice}, {minAgePerCar: customPerCar.reduce((acc, {carId, minAge}) => (acc[carId] = minAge, acc), {})})
+        return this.quotesService.getValidatorDTO()
     }
 
     @Get('plans')

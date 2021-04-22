@@ -18,7 +18,7 @@ import { AuthController } from './auth.controller'
     providers: [
         AuthGuard,
         AuthService,
-        LocalStrategy
+        LocalStrategy,
     ],
     exports: [
         AuthGuard,

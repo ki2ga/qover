@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, of, Subject } from 'rxjs'
-import { catchError, finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
+import { Observable, Subject } from 'rxjs'
+import { finalize, startWith, switchMap, takeWhile } from 'rxjs/operators'
 
 import { AuthService } from '@qover/data-access-auth'
 import { ISubmitLogin, IUser } from '@qover/shared-auth'
@@ -17,7 +17,7 @@ export class UserLoginComponent {
     /////////////////////////////////// Instance members //////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public loginResult$: Observable<IUser>
+    public user$: Observable<IUser>
 
     private loginSubject: Subject<ISubmitLogin> = new Subject()
 
@@ -25,15 +25,12 @@ export class UserLoginComponent {
     /////////////////////////////////// Constructor ///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor(
-        private readonly router: Router,
-        authService: AuthService,
-    ) {
-        this.loginResult$ = this.loginSubject.pipe(
+    constructor(router: Router, authService: AuthService) {
+        this.user$ = this.loginSubject.pipe(
             switchMap(login => authService.submitLogin(login)),
-            takeWhile(loginResult => !loginResult, true),
+            takeWhile(user => !user, true),
             startWith({} as IUser),
-            finalize(() => this.router.navigate(['/'])),
+            finalize(() => router.navigate(['/'])),
         )
     }
 

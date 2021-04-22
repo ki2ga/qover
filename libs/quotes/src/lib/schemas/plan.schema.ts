@@ -12,6 +12,7 @@ export class Plan {
     @Prop() personalAsistance: number
     @Prop() travelAsistance: number
     @Prop() durationYears: number
+    @Prop() active: boolean
 }
 
 export const PlanSchema = SchemaFactory.createForClass(Plan)

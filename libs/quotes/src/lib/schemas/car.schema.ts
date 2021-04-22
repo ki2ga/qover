@@ -15,6 +15,7 @@ export class Car {
     @Prop() _id: number
     @Prop() brand: string
     @Prop([PlanPriceParams]) priceInPlanParams: PlanPriceParams[]
+    @Prop() active: boolean
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car)

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 
-import { ISubmitQuote } from '@qover/shared-quote'
+import { EQuoteValidator, IQuoteValidator, ISubmitQuote, validateQuote } from '@qover/shared-quote'
 import { Car, CarDocument, PlanPriceParams } from './schemas/car.schema'
 import { Plan, PlanDocument } from './schemas/plan.schema'
 import { Offer, OfferDocument } from './schemas/offer.schema'
@@ -30,6 +30,9 @@ export class QuotesService {
      * @method createOffer
      *********************************************************************************************/
     public async createOffer(quote: ISubmitQuote): Promise<OfferDocument> {
+        const validator = await this.getValidatorDTO()
+        if (validateQuote(quote, validator) !== EQuoteValidator.OK) return null
+
         const params = await this.findCarOfferParams(quote.carId)
         const planPrices = params.map(({planId, fixed, permille}) => ({
             planId,
@@ -43,29 +46,30 @@ export class QuotesService {
     /**********************************************************************************************
      * @method findAllCars
      *********************************************************************************************/
-    public async findAllCars(): Promise<CarDocument[]> {
-        return this.carModel.find().exec()
+    public findAllCars(): Promise<CarDocument[]> {
+        return this.carModel.find({active: true}).exec()
     }
 
     /**********************************************************************************************
      * @method findAllPlans
      *********************************************************************************************/
-    public async findAllPlans(): Promise<PlanDocument[]> {
-        return this.planModel.find().exec()
+    public findAllPlans(): Promise<PlanDocument[]> {
+        return this.planModel.find({active: true}).exec()
     }
 
     /**********************************************************************************************
      * @method findOfferById
      *********************************************************************************************/
-    public async findOfferById(offerId: number): Promise<OfferDocument> {
+    public findOfferById(offerId: number): Promise<OfferDocument> {
         return this.offerModel.findById(offerId, {planPrices: true}).exec()
     }
 
     /**********************************************************************************************
-     * @method findQuoteValidator
+     * @method getValidatorDTO
      *********************************************************************************************/
-    public findQuoteValidator(): Promise<ValidatorDocument> {
-        return this.quoteValidatorModel.findOne().exec()
+     public async getValidatorDTO(): Promise<IQuoteValidator> {
+        const {minAge, minPrice, customPerCar} = await this.findQuoteValidator()
+        return Object.assign({minAge, minPrice}, {minAgePerCar: customPerCar.reduce((acc, {carId, minAge}) => (acc[carId] = minAge, acc), {})})
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,5 +82,12 @@ export class QuotesService {
     private async findCarOfferParams(carId: number): Promise<PlanPriceParams[]> {
         const car = await this.carModel.findById(carId, {priceInPlanParams: true}).exec()
         return car.priceInPlanParams
+    }
+
+    /**********************************************************************************************
+     * @method findQuoteValidator
+     *********************************************************************************************/
+    private findQuoteValidator(): Promise<ValidatorDocument> {
+        return this.quoteValidatorModel.findOne().exec()
     }
 }

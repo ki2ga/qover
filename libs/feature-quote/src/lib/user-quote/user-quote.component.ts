@@ -3,7 +3,6 @@ import { Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { switchMap, takeWhile, tap } from 'rxjs/operators'
 
-import { AuthService } from '@qover/data-access-auth'
 import { QuoteService } from '@qover/data-access-quote'
 import { ISubmitQuote } from '@qover/shared-quote'
 
@@ -31,7 +30,6 @@ export class UserQuoteComponent {
     constructor(
         private readonly quoteService: QuoteService,
         router: Router,
-        authService: AuthService,
     ) {
         this.offerId$ = this.quoteSubject.pipe(
             switchMap(quote => quoteService.submitQuote(quote)),
